@@ -1,4 +1,43 @@
-class Solution:
+class Solution2: #better runtime, passes each time. Still want to improve.
+    #for this i did did the two sum 2 problem for each index
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        right = {}
+        left = {}
+        success = {}
+        arr = []
+        nums.sort()
+        
+        for i in range(0, len(nums)):
+            if(nums[i] in success.keys()):
+                continue
+            lp = i+1
+            rp = len(nums)-1
+            while(lp < rp):
+                if(nums[i] + nums[lp] + nums[rp] < 0):
+                    lp += 1
+                    while(nums[lp] == nums[lp-1]):
+                        lp+=1
+                        if(lp == len(nums)):
+                            break
+                elif(nums[i] + nums[lp] + nums[rp] > 0):
+                    rp -= 1
+                    while(nums[rp] == nums[rp+1]):
+                        rp-=1
+                        if(rp < 0):
+                            break
+                else:
+                    arr.append([nums[i], nums[lp], nums[rp]])
+                    success[nums[i]] = 1
+                    lp+=1
+                    while(nums[lp] == nums[lp-1]):
+                        lp+=1
+                        if(lp == len(nums)):
+                            break
+                    
+        return arr
+
+
+class Solution:#slow. Can sometimes fail and sometimes pass
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         if(len(nums) < 3):
             return None
